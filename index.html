@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <style>
+
+            .ticker-wrap {
+                position: fixed;
+                top: 0; /* Adjust for desired position */
+                width: 100%;
+                overflow: hidden;                
+                padding: 5px;
+              }
+              
+              .ticker {
+                white-space: wrap;
+                animation: ticker 50s linear infinite; /* Adjust speed as needed */    
+                
+                
+              }
+              
+              .ticker__item {
+                display: inline-block;
+                padding: 5px;
+                padding-left: 15px;
+                padding-right: 15px;
+                background-color: #bd0f72; /* Adjust background color */
+                font-family: 'Proxima Nova', sans-serif;
+                border-radius: 10px; /* All corners will have a 10px radius */
+                height: 60px; /* Adjust ticker height */
+                text-align: 'center';                
+                outline: 4px solid #f39200;
+              }
+              
+              @keyframes ticker {
+                0% {
+                  transform: translateX(100%);
+                }
+                100% {
+                  transform: translateX(-100%);
+                }
+              }
+
+              h1, h2, h4, h5, h6 {
+                font-family: 'Proxima Nova', sans-serif;
+                text-align: 'center';
+                color: #ffffff;  /* Font color */
+                }
+
+                h3 {
+                    font-family: 'Proxima Nova', sans-serif;
+                    text-align: 'center';
+                    color: #000000;
+                    text-decoration: none; 
+
+                a {
+                    font-family: 'Proxima Nova', sans-serif;
+                    text-align: 'center';
+                    color: #ffffff;
+                    text-decoration: none;  
+
+             .no-news-message {
+                    text-align: center;
+                    font-weight: bold;
+                    color: green; // Adjust styling as needed
+                }
+              }
+
+
+              p {
+                font-family: 'Proxima Nova', sans-serif;
+                text-align: 'left';
+                color: #000000;
+              }
+
+              </style>  
+        </head>
+        <body>
+            <div class="ticker-wrap">
+                <div class="ticker">                            
+                  <div class="ticker__item" data-expiration-date="2024-04-01"><h3><a href="https://docs.google.com/spreadsheets/d/1rQxQdbp0P9RtJZDZ89Rjdtj3K5DE06YthybsfqGRg4U/edit#gid=1619995410" target="new">Service have been rebalanced. As of 01/08/2024</a></h3></div>
+                  &nbsp;
+                  &nbsp;
+                  <div class="ticker__item" data-expiration-date="2024-02-01"><h3><a href="https://us.one-line.com/CanalRoutingUpdates" target="new">Panama and Suez Canal Routing Updates</a></h3></div>
+                </div>
+              </div>
+              
+<script> /* needs to be in the body */
+            
+   const tickerItems = document.querySelectorAll('.ticker__item');
+
+   function checkExpiration() {
+  const currentDate = new Date();
+  let anyVisibleItems = false;
+
+  tickerItems.forEach(item => {
+    const expirationDate = new Date(item.dataset.expirationDate);
+    if (currentDate > expirationDate) {
+      item.style.display = 'none'; // Hide the expired item
+    } else {
+      anyVisibleItems = true; // Track if any items are visible
+    }
+  });  
+
+  if (!anyVisibleItems) {
+    // Show "No News is Good News" message
+    const noNewsElement = document.createElement('div');
+    noNewsElement.classList.add('no-news-message');
+    noNewsElement.textContent = 'No News is Good News!';
+    ticker.appendChild(noNewsElement);
+  }
+}
+                    
+  // Initial check on page load
+  checkExpiration();
+                    
+  // Repeat the check every hour
+ setInterval(checkExpiration, 3600000);
+                    
+                    
+</script>
+                
+        </body>
+    </html>
